@@ -41,11 +41,15 @@ void instance_blood_furnace::OnCreatureCreate(Creature* pCreature)
     switch (pCreature->GetEntry())
     {
         case NPC_BROGGOK:
+        case NPC_KELIDAN_THE_BREAKER:
             m_mNpcEntryGuidStore[pCreature->GetEntry()] = pCreature->GetObjectGuid();
             break;
 
         case NPC_NASCENT_FEL_ORC:
-            m_luiNascentOrcGUIDs.push_back(pCreature->GetObjectGuid());
+            m_luiNascentOrcGuids.push_back(pCreature->GetObjectGuid());
+            break;
+        case NPC_SHADOWMOON_CHANNELER:
+            m_lChannelersGuids.push_back(pCreature->GetObjectGuid());
             break;
     }
 }
@@ -187,7 +191,7 @@ void instance_blood_furnace::DoNextBroggokEventPhase()
 
         if (Creature* pBroggok = GetSingleCreatureFromStorage(NPC_BROGGOK))
         {
-            pBroggok->RemoveSplineFlag(SPLINEFLAG_WALKMODE);
+            pBroggok->SetWalk(false);
             pBroggok->GetMotionMaster()->MovePoint(0, dx, dy, pBroggok->GetPositionZ());
         }
     }
@@ -208,7 +212,7 @@ void instance_blood_furnace::DoNextBroggokEventPhase()
                 pOrc->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
 
                 // Move them out of the cages
-                pOrc->RemoveSplineFlag(SPLINEFLAG_WALKMODE);
+                pOrc->SetWalk(false);
                 pOrc->GetMotionMaster()->MovePoint(0, pOrc->GetPositionX() + dx, pOrc->GetPositionY() + dy, pOrc->GetPositionZ());
             }
         }
@@ -310,7 +314,7 @@ void instance_blood_furnace::Load(const char* chrIn)
 // Sort all nascent orcs in the instance in order to get only those near broggok doors
 void instance_blood_furnace::DoSortBroggokOrcs()
 {
-    for (GUIDList::const_iterator itr = m_luiNascentOrcGUIDs.begin(); itr != m_luiNascentOrcGUIDs.end(); ++itr)
+    for (GUIDList::const_iterator itr = m_luiNascentOrcGuids.begin(); itr != m_luiNascentOrcGuids.end(); ++itr)
     {
         if (Creature* pOrc = instance->GetCreature(*itr))
         {

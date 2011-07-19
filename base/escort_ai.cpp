@@ -316,7 +316,7 @@ void npc_escortAI::UpdateAI(const uint32 uiDiff)
     }
 
     //Check if player or any member of his group is within range
-    if (HasEscortState(STATE_ESCORT_ESCORTING) && m_playerGuid && !m_creature->getVictim() && !HasEscortState(STATE_ESCORT_RETURNING))
+   /* if (HasEscortState(STATE_ESCORT_ESCORTING) && m_playerGuid && !m_creature->getVictim() && !HasEscortState(STATE_ESCORT_RETURNING))
     {
         if (m_uiPlayerCheckTimer < uiDiff)
         {
@@ -339,7 +339,7 @@ void npc_escortAI::UpdateAI(const uint32 uiDiff)
         }
         else
             m_uiPlayerCheckTimer -= uiDiff;
-    }
+    }*/
 
     UpdateEscortAI(uiDiff);
 }
@@ -363,11 +363,7 @@ void npc_escortAI::MovementInform(uint32 uiMoveType, uint32 uiPointId)
     {
         debug_log("SD2: EscortAI has returned to original position before combat");
 
-        if (m_bIsRunning && m_creature->HasSplineFlag(SPLINEFLAG_WALKMODE))
-            m_creature->RemoveSplineFlag(SPLINEFLAG_WALKMODE);
-        else if (!m_bIsRunning && !m_creature->HasSplineFlag(SPLINEFLAG_WALKMODE))
-            m_creature->AddSplineFlag(SPLINEFLAG_WALKMODE);
-
+        m_creature->SetWalk(!m_bIsRunning);
         RemoveEscortState(STATE_ESCORT_RETURNING);
 
         if (!m_uiWPWaitTimer)
@@ -425,23 +421,27 @@ void npc_escortAI::FillPointMovementListForCreature()
 
 void npc_escortAI::SetCurrentWaypoint(uint32 uiPointId)
 {
-    if (!(HasEscortState(STATE_ESCORT_PAUSED)))             // only when paused
+    if (!(HasEscortState(STATE_ESCORT_PAUSED)))             // Only when paused
         return;
 
-    if (uiPointId >= WaypointList.size())                   // too high number
+    if (uiPointId == CurrentWP->uiId)                       // Already here
         return;
 
-    if (uiPointId == CurrentWP->uiId)                       // already here
-        return;
-
-    CurrentWP = WaypointList.begin();                       // set to begin (can't -- backwards in itr list)
-
-    while(uiPointId != CurrentWP->uiId)
+    bool bFoundWaypoint = false;
+    for (std::list<Escort_Waypoint>::iterator itr = WaypointList.begin(); itr != WaypointList.end(); ++itr)
     {
-        ++CurrentWP;
-
-        if (CurrentWP == WaypointList.end())
+        if (itr->uiId == uiPointId)
+        {
+            CurrentWP = itr;                                // Set to found itr
+            bFoundWaypoint = true;
             break;
+        }
+    }
+
+    if (!bFoundWaypoint)
+    {
+        debug_log("SD2: EscortAI current waypoint tried to set to id %u, but doesn't exist in WaypointList", uiPointId);
+        return;
     }
 
     m_uiWPWaitTimer = 1;
@@ -454,14 +454,14 @@ void npc_escortAI::SetRun(bool bRun)
     if (bRun)
     {
         if (!m_bIsRunning)
-            m_creature->RemoveSplineFlag(SPLINEFLAG_WALKMODE);
+            m_creature->SetWalk(false);
         else
             debug_log("SD2: EscortAI attempt to set run mode, but is already running.");
     }
     else
     {
         if (m_bIsRunning)
-            m_creature->AddSplineFlag(SPLINEFLAG_WALKMODE);
+            m_creature->SetWalk(true);
         else
             debug_log("SD2: EscortAI attempt to set walk mode, but is already walking.");
     }
@@ -521,8 +521,7 @@ void npc_escortAI::Start(bool bRun, const Player* pPlayer, const Quest* pQuest, 
     CurrentWP = WaypointList.begin();
 
     //Set initial speed
-    if (m_bIsRunning)
-        m_creature->RemoveSplineFlag(SPLINEFLAG_WALKMODE);
+    m_creature->SetWalk(!m_bIsRunning);
 
     AddEscortState(STATE_ESCORT_ESCORTING);
 

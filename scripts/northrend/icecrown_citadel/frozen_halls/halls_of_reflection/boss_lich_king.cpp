@@ -65,16 +65,16 @@ enum
   SAY_LICH_KING_WIN                  = -1594485,
 
   /*INTRO - Lich King Arrive*/
-  SAY_LICH_KING_17                   = -1594468,
-  SAY_LICH_KING_18                   = -1594469,
-  SAY_LICH_KING_19                   = -1594470,
-  SAY_JAINA_20                       = -1594471,
-  SAY_SYLVANA_20                     = -1594472,
-  SAY_LICH_KING_A_21                 = -1594473,
-  SAY_LICH_KING_H_21                 = -1594474,
-  SAY_FALRIC_INTRO                   = -1594475,
-  SAY_MARWYN_INTRO                   = -1594476,
-  SAY_FALRIC_INTRO2                  = -1594505,
+  SAY_LICH_KING_17                   = -1668468,
+  SAY_LICH_KING_18                   = -1668469,
+  SAY_LICH_KING_19                   = -1668470,
+  SAY_JAINA_20                       = -1668471,
+  SAY_SYLVANA_20                     = -1668472,
+  SAY_LICH_KING_A_21                 = -1668473,
+  SAY_LICH_KING_H_21                 = -1668474,
+  SAY_FALRIC_INTRO                   = -1668475,
+  SAY_MARWYN_INTRO                   = -1668476,
+  SAY_FALRIC_INTRO2                  = -1668505,
 
   SPELL_TAKE_FROSTMOURNE             = 72729,
   SPELL_FROSTMOURNE_DESPAWN          = 72726,
@@ -85,10 +85,10 @@ enum
   SPELL_FROSTMOURNE_VISUAL           = 73220,
 
   /*INTRO - Pre Escape*/
-  SAY_LICH_KING_AGGRO_A              = -1594477,
-  SAY_LICH_KING_AGGRO_H              = -1594478,
-  SAY_JAINA_AGGRO                    = -1594479,
-  SAY_SYLVANA_AGGRO                  = -1594480,
+  SAY_LICH_KING_AGGRO_A              = -1668477,
+  SAY_LICH_KING_AGGRO_H              = -1668478,
+  SAY_JAINA_AGGRO                    = -1668479,
+  SAY_SYLVANA_AGGRO                  = -1668480,
 
 };
 
@@ -162,7 +162,7 @@ struct MANGOS_DLL_DECL boss_lich_king_hrAI : public npc_escortAI
 
         if (Creature* pNewLeader = m_creature->SummonCreature(newLeader,WallLoc[6].x,WallLoc[6].y,WallLoc[6].z,WallLoc[6].o,TEMPSUMMON_MANUAL_DESPAWN,0,true))
         {
-             pNewLeader->RemoveSplineFlag(SPLINEFLAG_WALKMODE);
+             pNewLeader->SetWalk(false);
              pNewLeader->SetSpeedRate(MOVE_RUN, 1.0f, true);
              pNewLeader->SetRespawnDelay(DAY);
              pNewLeader->SetHealth(pNewLeader->GetMaxHealth()/10);
@@ -186,8 +186,8 @@ struct MANGOS_DLL_DECL boss_lich_king_hrAI : public npc_escortAI
                 if (Creature* pLider = m_pInstance->GetSingleCreatureFromStorage(m_pInstance->GetData(DATA_ESCAPE_LIDER)))
                 {
                     pLider->CastSpell(pLider, SPELL_SILENCE, false);
-                    pLider->AddSplineFlag(SPLINEFLAG_FLYING);
-                    pLider->SendMonsterMove(pLider->GetPositionX(), pLider->GetPositionY(), pLider->GetPositionZ() + 4, SPLINETYPE_NORMAL , pLider->GetSplineFlags(), 3000);
+                    pLider->SetLevitate(true);
+                    pLider->MonsterMoveWithSpeed(pLider->GetPositionX(), pLider->GetPositionY(), pLider->GetPositionZ() + 4, 26);
                 }
                 m_pInstance->SetData(TYPE_PHASE, 6);
                 m_pInstance->SetNextEvent(610,GetLeader(),5000);
@@ -438,7 +438,7 @@ struct MANGOS_DLL_DECL boss_lich_king_hrAI : public npc_escortAI
 
            NonFight = true;
            m_creature->AttackStop();
-           m_creature->AddSplineFlag(SPLINEFLAG_WALKMODE);
+           m_creature->SetWalk(true);
            m_creature->SetSpeedRate(MOVE_WALK, 2.7f, true);
            if (boss_lich_king_hrAI* pEscortAI = dynamic_cast<boss_lich_king_hrAI*>(m_creature->AI()))
                pEscortAI->Start();
@@ -575,7 +575,7 @@ struct MANGOS_DLL_DECL boss_lich_king_intro_horAI : public ScriptedAI
                 break;
             case 37:
                 m_creature->GetMotionMaster()->MovementExpired(false);
-                m_creature->RemoveSplineFlag(SPLINEFLAG_WALKMODE);
+                m_creature->SetWalk(false);
                 m_creature->GetMotionMaster()->MovePoint(0, 5443.880f, 2147.095f, 707.695f);
                 if (GetLeader() == NPC_JAINA)
                     DoScriptText(SAY_LICH_KING_A_21, m_creature);

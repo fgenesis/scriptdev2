@@ -1,18 +1,19 @@
-/* Copyright (C) 2008 - 2010 TrinityCore <http://www.trinitycore.org>
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* Copyright (C) 2006 - 2011 ScriptDev2 <http://www.scriptdev2.com/>
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
 /* ScriptData
 SDName: Boss_Urom
 SD%Complete: 70%
@@ -151,7 +152,7 @@ struct MANGOS_DLL_DECL boss_uromAI : public BSWScriptedAI
     void TeleportBoss(float X, float Y, float Z, float O)
     {
         m_creature->GetMap()->CreatureRelocation(m_creature, X, Y, Z, O);
-        m_creature->SendMonsterMove(X, Y, Z, SPLINETYPE_NORMAL, SPLINEFLAG_DONE, 0);
+        m_creature->MonsterMoveWithSpeed(X, Y, Z, 26);
         m_creature->Relocate(X, Y, Z, O);
     }
 
@@ -187,7 +188,7 @@ struct MANGOS_DLL_DECL boss_uromAI : public BSWScriptedAI
                 m_bIsTalk = true;
                 SetCombatMovement(false);
                 m_pInstance->SetData(TYPE_UROM, IN_PROGRESS);
-                m_creature->InterruptNonMeleeSpells(false); 
+                m_creature->InterruptNonMeleeSpells(false);
                 m_creature->RemoveAurasDueToSpell(53813);
                 DoScriptText(SAY_SUMMON_1, m_creature);
                 DoSummon(NPC_PHANTASMAL_FIRE, NPC_PHANTASMAL_FIRE, NPC_PHANTASMAL_AIR, NPC_PHANTASMAL_WATER);
@@ -329,7 +330,7 @@ struct MANGOS_DLL_DECL boss_uromAI : public BSWScriptedAI
            if(m_uiRelocateTimer < uiDiff)
            {
                m_bIsTeleported = true;
-               m_creature->AddSplineFlag(SPLINEFLAG_FLYING);
+               m_creature->SetLevitate(true);
                m_creature->GetMotionMaster()->Clear(false);
                m_creature->GetMotionMaster()->MoveIdle();
                m_creature->StopMoving();
@@ -351,7 +352,7 @@ struct MANGOS_DLL_DECL boss_uromAI : public BSWScriptedAI
            if(m_uiBackTimer < uiDiff)
            {
                TeleportBoss((m_creature->getVictim())->GetPositionX(),(m_creature->getVictim())->GetPositionY(),(m_creature->getVictim())->GetPositionZ(),(m_creature->getVictim())->GetOrientation());
-               m_creature->RemoveSplineFlag(SPLINEFLAG_FLYING);
+               m_creature->SetLevitate(false);
                if(m_creature->getVictim())
                   m_creature->GetMotionMaster()->MoveChase(m_creature->getVictim());
                m_uiBackTimer = 9000;

@@ -1,18 +1,19 @@
-/* Copyright (C) 2008 - 2010 TrinityCore <http://www.trinitycore.org>
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* Copyright (C) 2006 - 2011 ScriptDev2 <http://www.scriptdev2.com/>
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
 
 /* ScriptData
 SDName: instance_oculus
@@ -44,10 +45,6 @@ struct MANGOS_DLL_DECL instance_oculus : public ScriptedInstance
         Initialize();
     };
 
-    ObjectGuid uiCacheEregosGUID;
-    ObjectGuid uiCacheEregosHGUID;
-    ObjectGuid m_uiSpotLightGUID;
-
     uint32 m_auiEncounter[MAX_ENCOUNTERS+1];
 
     std::string strSaveData;
@@ -64,26 +61,16 @@ struct MANGOS_DLL_DECL instance_oculus : public ScriptedInstance
 
     void OnObjectCreate(GameObject* pGO)
     {
-        switch(pGO->GetEntry())
-        {
-            case GO_EREGOS_CACHE:
-                uiCacheEregosGUID = pGO->GetObjectGuid();
-                break;
-            case GO_EREGOS_CACHE_H:
-                uiCacheEregosHGUID = pGO->GetObjectGuid();
-                break;
-            case GO_SPOTLIGHT:
-                m_uiSpotLightGUID = pGO->GetObjectGuid();
-                break;
-        }
+        m_mGoEntryGuidStore[pGO->GetEntry()] = pGO->GetObjectGuid();
     }
 
     void OnCreatureCreate(Creature* pCreature)
     {
         switch(pCreature->GetEntry())
         {
-            case NPC_DRAKOS:
             case NPC_VAROS:
+                pCreature->SetActiveObjectState(true);
+            case NPC_DRAKOS:
             case NPC_UROM:
             case NPC_EREGOS:
             case NPC_BALGAR_IMAGE:
@@ -105,8 +92,8 @@ struct MANGOS_DLL_DECL instance_oculus : public ScriptedInstance
                 m_auiEncounter[type] = data;
                 if (data == DONE)
                 {
-                    DoRespawnGameObject((m_bIsRegularMode ? uiCacheEregosGUID : uiCacheEregosHGUID), HOUR);
-                    DoRespawnGameObject(m_uiSpotLightGUID, HOUR);
+                    DoRespawnGameObject(m_bIsRegularMode ? GO_EREGOS_CACHE : GO_EREGOS_CACHE_H, HOUR);
+                    DoRespawnGameObject(GO_SPOTLIGHT, HOUR);
                 }
                 break;
             case TYPE_ROBOTS:
@@ -199,11 +186,31 @@ InstanceData* GetInstanceData_instance_oculus(Map* pMap)
     return new instance_oculus(pMap);
 }
 
+/*### 
+# Oculus Orb 
+-####*/ 
+bool GOUse_go_oculus_portal(Player* pPlayer, GameObject* pGo) 
+{ 
+    switch(pGo->GetEntry()) 
+    {
+    case GO_ORB_OF_NEXUS: 
+        pPlayer->TeleportTo(571,3876.159912f,6984.439941f,106.32f,6.279f); 
+        return true; 
+    } 
+    return false; 
+}
+
+
 void AddSC_instance_oculus()
 {
     Script *newscript;
     newscript = new Script;
     newscript->Name = "instance_oculus";
     newscript->GetInstanceData = &GetInstanceData_instance_oculus;
+    newscript->RegisterSelf();
+
+    newscript = new Script; 
+    newscript->Name = "go_oculus_portal"; 
+    newscript->pGOUse = GOUse_go_oculus_portal; 
     newscript->RegisterSelf();
 }

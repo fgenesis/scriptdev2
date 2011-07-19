@@ -1,18 +1,18 @@
-/* Copyright (C) 2008 - 2010 TrinityCore <http://www.trinitycore.org>
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+/* Copyright (C) 2006 - 2011 ScriptDev2 <http://www.scriptdev2.com/>
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 
 /* ScriptData
 SDName: Boss_Eregos
@@ -85,13 +85,13 @@ struct MANGOS_DLL_DECL boss_eregosAI : public ScriptedAI
            {
               m_creature->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
            }
-           else 
+           else
            {
               m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
            }
         }
 
-        m_creature->AddSplineFlag(SPLINEFLAG_FLYING);
+        m_creature->SetLevitate(true);
         m_creature->SetUInt32Value(UNIT_FIELD_BYTES_0, 50331648);
         m_creature->SetUInt32Value(UNIT_FIELD_BYTES_1, 50331648);
         uiArcaneBarrageTimer = 12000;
@@ -137,13 +137,13 @@ struct MANGOS_DLL_DECL boss_eregosAI : public ScriptedAI
     void JustDied(Unit* killer)
     {
         m_creature->GetMap()->CreatureRelocation(m_creature, m_creature->GetPositionX(), m_creature->GetPositionY(), m_creature->GetPositionZ()-100.0f, 0);
-        m_creature->SendMonsterMove(m_creature->GetPositionX(), m_creature->GetPositionY(), m_creature->GetPositionZ()-100.0f, SPLINETYPE_NORMAL , m_creature->GetSplineFlags(), 6000);
+        m_creature->MonsterMoveWithSpeed(m_creature->GetPositionX(), m_creature->GetPositionY(), m_creature->GetPositionZ()-100.0f, 26);
             DoScriptText(SAY_DEATH, m_creature);
         if (m_pInstance)
             m_pInstance->SetData(TYPE_EREGOS, DONE);
     }
 
-    void DamageTaken(Unit *done_by, uint32 &damage) 
+    void DamageTaken(Unit *done_by, uint32 &damage)
     {
         if(m_creature->HasAura(SPELL_PLANAR_SHIFT))
            damage = 0;
@@ -258,7 +258,7 @@ struct MANGOS_DLL_DECL boss_eregosAI : public ScriptedAI
 
 struct MANGOS_DLL_DECL npc_planar_anomalyAI : public ScriptedAI
 {
-    npc_planar_anomalyAI(Creature *pCreature) : ScriptedAI(pCreature) 
+    npc_planar_anomalyAI(Creature *pCreature) : ScriptedAI(pCreature)
     {
        Reset();
     }
@@ -270,7 +270,7 @@ struct MANGOS_DLL_DECL npc_planar_anomalyAI : public ScriptedAI
     {
         m_creature->SetDisplayId(11686);
         m_creature->SetObjectScale(2.0f);
-        m_creature->AddSplineFlag(SPLINEFLAG_FLYING);
+        m_creature->SetLevitate(true);
         m_creature->SetSpeedRate(MOVE_RUN, 1.5, true);
         m_creature->setFaction(14);
         m_creature->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NON_ATTACKABLE);
