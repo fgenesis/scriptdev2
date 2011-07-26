@@ -2,6 +2,29 @@
 DELETE FROM scripted_areatrigger WHERE entry=3626;
 INSERT INTO scripted_areatrigger VALUES (3626, 'at_vaelastrasz');
 
+-- EAI Text clean up for quests/sd2
+DELETE FROM `creature_ai_texts` WHERE (`entry`='-1120') OR (`entry`='-1121') OR (`entry`='-1122') OR (`entry`='-1123') OR (`entry`='-1124') OR (`entry`='-1125') OR (`entry`='-1126') OR (`entry`='-1127') OR (`entry`='-1128');
+DELETE FROM `creature_ai_texts` WHERE (`entry`='-555') OR (`entry`='-556') OR (`entry`='-557') OR (`entry`='-558') OR (`entry`='-559') OR (`entry`='-560') OR (`entry`='-561') OR (`entry`='-562') OR (`entry`='-563') OR (`entry`='-564') OR (`entry`='-565');
+DELETE FROM `creature_ai_texts` WHERE (`entry`='-696') OR (`entry`='-697');
+
+-- mangosR2 EAI CleanUp for quests/sd2
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 25316;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 26127;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 27483;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 27600;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 28610;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 28939;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 29199;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 29200;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 29204;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 29206;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 29219;
+
+-- fixes for upcoming YTDB DB update
+UPDATE creature_template SET ScriptName='' WHERE entry IN (35035, 35770, 35771, 35766);
+UPDATE creature_template SET ScriptName='' WHERE entry=36549;
+UPDATE `creature_template` SET `npcflag`=1, `scriptname`='npc_toc_announcer' WHERE `entry`=34816;  -- needed to be rerun
+
 -- ----------------------------------------
 -- Quest 11466 fixes and improvements
 -- ----------------------------------------
@@ -136,13 +159,14 @@ DELETE FROM `creature_ai_scripts` WHERE (`id`='2509251');
 INSERT INTO `creature_ai_scripts` VALUES ('2509251', '25092', '8', '0', '100', '1', '45115', '-1', '0', '0', '33', '25092', '6', '0', '11', '73119', '0', '22', '41', '120000', '0', '0', 'ytdb-q11542,11543');
 
 -- -------------------------
--- fix quest toxic_test 9051
+-- fix quest toxic_test 9051 -- still not working is kill credit
 -- -------------------------
-UPDATE `quest_template` SET `ReqCreatureOrGOId1` = '6498' WHERE `entry` =9051;
-UPDATE `quest_template` SET `ReqCreatureOrGOCount1` = 1 WHERE `entry` = 9051;
-DELETE FROM `creature_ai_scripts` WHERE `id` =649802;
-INSERT INTO `creature_ai_scripts` (`id`, `creature_id`, `event_type`, `event_chance`, `event_flags`, `event_param1`, `event_param2`, `action1_type`, `action1_param1`, `action1_param2`, `comment`) VALUES
-('649802', '6498', '8', '100', '1', '7211', '-1', '33', '6498', '6', 'quest Credit for quest 9051'); 
+UPDATE `quest_template` SET `ReqCreatureOrGOId1` = '6498' WHERE `entry` =9051; -- fixes spell credit
+UPDATE `quest_template` SET `ReqCreatureOrGOCount1` = 1 WHERE `entry` = 9051; -- fixes spell credit
+
+DELETE FROM `creature_ai_scripts` WHERE `id` =649802; -- clean up of testing hack to get kill credit
+
+UPDATE `quest_template` SET `ReqSourceId1` = 22432, `ReqSourceCount1` = 1 WHERE `entry` = 9051; -- take item out of player inventory upon completetion
 
 -- ------------------------------
 -- Quest : 12078 Worm Wrangler --
@@ -162,7 +186,10 @@ UPDATE `creature_template` SET ScriptName='npc_nexus_drake', AIName='' WHERE ent
 -- -------------------------------
 UPDATE gameobject_template SET ScriptName='go_scourge_cage' WHERE entry IN (187854,187855,187856,187857,187858,187859,187860,187862,187863,187864,187865,187866,187867,187868,187870,187871,187872,187873,187874,187861,190803);
 
+-- ------------------------
 -- Quest: Abduction (11590)
+-- ------------------------
+
 UPDATE `creature_template` SET
 minhealth=6387,
 maxhealth=7185,
@@ -186,17 +213,6 @@ UPDATE `creature_template` SET AIName='EventAI', flags_extra=flags_extra|64 WHER
 DELETE FROM `creature_ai_scripts` WHERE creature_id = 17086;
 INSERT INTO `creature_ai_scripts` VALUES
 (1708601,17086,2,0,100,0,25,0,0,0,11,8599,0,1,1,-106,0,0,0,0,0,0,'Enraged Wraith - Cast Enrage on 50% HP');
-
-
--- Console/conflict fixes from recent checks added by mangos for EventAI
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2531612') OR (`id`='2531601') OR (`id`='2531603') OR (`id`='2531609') OR (`id`='2531611') OR (`id`='2531608') OR (`id`='2531607') OR (`id`='2531610') OR (`id`='2531604') OR (`id`='2531606') OR (`id`='2531602') OR (`id`='2531605') OR (`id`='2531651');
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2612702') OR (`id`='2612701');
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2748307') OR (`id`='2748302') OR (`id`='2748305') OR (`id`='2748303') OR (`id`='2748308') OR (`id`='2748301') OR (`id`='2748306') OR (`id`='2748304');
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2760001') OR (`id`='2760006') OR (`id`='2760007') OR (`id`='2760004') OR (`id`='2760010') OR (`id`='2760009') OR (`id`='2760002') OR (`id`='2760011') OR (`id`='2760005') OR (`id`='2760008') OR (`id`='2760003');
-DELETE FROM `creature_ai_scripts` WHERE (`id`='2920404') OR (`id`='2920403') OR (`id`='2920402') OR (`id`='2920401') OR (`id`='2920003') OR (`id`='2920001') OR (`id`='2920002') OR (`id`='2919902') OR (`id`='2919901') OR (`id`='2919903');
-
-DELETE FROM `creature_ai_texts` WHERE (`entry`='-1120') OR (`entry`='-1121') OR (`entry`='-1122') OR (`entry`='-1123') OR (`entry`='-1124') OR (`entry`='-1125') OR (`entry`='-1126') OR (`entry`='-1127') OR (`entry`='-1128');
-DELETE FROM `creature_ai_texts` WHERE (`entry`='-696') OR (`entry`='-697');
 
 -- ---------------
 -- Gamel the Cruel
@@ -347,17 +363,17 @@ INSERT INTO `creature` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`modelid`,`equ
 -- UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 21506;
 -- UPDATE `creature_template` SET `modelid_2` = 17287 WHERE `entry` = 21506; -- this isnt correct display yet
 
---DELETE FROM creature_ai_scripts WHERE creature_id=21506;
---INSERT INTO creature_ai_scripts VALUES
---(2150601,21506,8,0,100,1,37834,-1,0,0,1,-21506,0,0,21,6,0,0,16,21892,37834,6,'Azaloth  - Yell and Start Combat Movements'),
---(2150602,21506,3,0,100,0,0,0,0,0,0,28,0,37833,0,0,0,0,0,0,0,0,'Azaloth  - Yell and Start Combat Movements'),
---(2150603,21506,0,0,100,1,4000,4000,8000,8000,11,40504,1,0,0,0,0,0,0,0,0,0,'Azaloth - Cast Cleave'),
---(2150604,21506,0,0,100,1,3000,3000,17000,17000,11,11443,1,1,0,0,0,0,0,0,0,0,'Azaloth Cast Cripple'),
---(2150605,21506,0,0,100,1,10000,12000,33000,33000,11,38741,4,3,0,0,0,0,0,0,0,0,'Azaloth - Cast Rain of Fire'),
---(2150606,21506,0,0,100,1,6000,6000,14000,14000,11,38750,1,3,0,0,0,0,0,0,0,0,'Azaloth - Cast War Stomp');
+-- DELETE FROM creature_ai_scripts WHERE creature_id=21506;
+-- INSERT INTO creature_ai_scripts VALUES
+-- (2150601,21506,8,0,100,1,37834,-1,0,0,1,-21506,0,0,21,6,0,0,16,21892,37834,6,'Azaloth  - Yell and Start Combat Movements'),
+-- (2150602,21506,3,0,100,0,0,0,0,0,0,28,0,37833,0,0,0,0,0,0,0,0,'Azaloth  - Yell and Start Combat Movements'),
+-- (2150603,21506,0,0,100,1,4000,4000,8000,8000,11,40504,1,0,0,0,0,0,0,0,0,0,'Azaloth - Cast Cleave'),
+-- (2150604,21506,0,0,100,1,3000,3000,17000,17000,11,11443,1,1,0,0,0,0,0,0,0,0,'Azaloth Cast Cripple'),
+-- (2150605,21506,0,0,100,1,10000,12000,33000,33000,11,38741,4,3,0,0,0,0,0,0,0,0,'Azaloth - Cast Rain of Fire'),
+-- (2150606,21506,0,0,100,1,6000,6000,14000,14000,11,38750,1,3,0,0,0,0,0,0,0,0,'Azaloth - Cast War Stomp');
 
---DELETE FROM creature_ai_texts WHERE entry=-21506;
---INSERT INTO creature_ai_texts (entry,content_default,type,comment) VALUES
---(-21506,'Illidan\s lapdogs! You will pay for my imprisonment with your lives!',1,'Azaloth yell1');
+-- DELETE FROM creature_ai_texts WHERE entry=-21506;
+-- INSERT INTO creature_ai_texts (entry,content_default,type,comment) VALUES
+-- (-21506,'Illidan\s lapdogs! You will pay for my imprisonment with your lives!',1,'Azaloth yell1');
 
 -- not finished with this

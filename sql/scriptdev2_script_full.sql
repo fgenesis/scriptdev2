@@ -1087,7 +1087,7 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1409021,'I go now to summon the lord whos house this is. Should you seek an audiance with him your paltry lives will surly be forfit. Nevertheless seek out his lair if you dare!',0,1,0,0,'majordomo SAY_DEFEAT_3'),
 (-1409022,'My flame! Please don\'t take away my flame... ',8042,1,0,0,'ragnaros SAY_ARRIVAL4_MAJ'),
 (-1409023,'Very well, $N.',0,0,0,0,'majordomo SAY_SUMMON_0'),
-(-1409024,'Impudent whelps! You''ve rushed headlong to your own deaths! See now, the master stirs!',0,1,0,0,'majordomo SAY_SUMMON_1');
+(-1409024,'Impudent whelps! You\'ve rushed headlong to your own deaths! See now, the master stirs!',0,1,0,0,'majordomo SAY_SUMMON_1');
 
 -- -1 429 000 DIRE MAUL
 INSERT INTO script_texts (entry,content_default,sound,type,language,emote,comment) VALUES
@@ -1430,11 +1430,11 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1533082,'%s takes in a deep breath...',0,3,0,0,'sapphiron EMOTE_BREATH'),
 (-1533083,'%s resumes his attacks!',0,3,0,0,'sapphiron EMOTE_GROUND'),
 
-(-1533084,'Our preparations continue as planned, master.',14467,1,0,0,'kelthuzad SAY_SAPP_DIALOG1'),
-(-1533085,'It is good that you serve me so faithfully. Soon, all will serve the Lich King and in the end, you shall be rewarded...so long as you do not falter.',8881,1,0,0,'kelthuzad SAY_SAPP_DIALOG2_LICH'),
-(-1533086,'I see no complications... Wait... What is this?',14468,1,0,0,'kelthuzad SAY_SAPP_DIALOG3'),
-(-1533087,'Your security measures have failed! See to this interruption immediately!',8882,1,0,0,'kelthuzad SAY_SAPP_DIALOG4_LICH'),
-(-1533088,'Yes, master!',14469,1,0,0,'kelthuzad SAY_SAPP_DIALOG5'),
+(-1533084,'Your forces are nearly marshalled to strike back against your enemies, my liege.',14467,6,0,0,'kelthuzad SAY_SAPP_DIALOG1'),
+(-1533085,'Soon we will eradicate the Alliance and Horde, then the rest of Azeroth will fall before the might of my army.',14768,6,0,0,'lich_king SAY_SAPP_DIALOG2_LICH'),
+(-1533086,'Yes, Master. The time of their ultimate demise grows close...What is this?',14468,6,0,0,'kelthuzad SAY_SAPP_DIALOG3'),
+(-1533087,'Invaders...here?! DESTROY them, Kel\'Thuzad! Naxxramas must not fall!',14769,6,0,0,'lich_king SAY_SAPP_DIALOG4_LICH'),
+(-1533088,'As you command, Master!',14469,6,0,0,'kelthuzad SAY_SAPP_DIALOG5'),
 (-1533089,'No!!! A curse upon you, interlopers! The armies of the Lich King will hunt you down. You will not escape your fate...',14484,6,0,0,'kelthuzad SAY_CAT_DIED'),
 (-1533090,'Who dares violate the sanctity of my domain? Be warned, all who trespass here are doomed.',14463,6,0,0,'kelthuzad SAY_TAUNT1'),
 (-1533091,'Fools, you think yourselves triumphant? You have only taken one step closer to the abyss! ',14464,6,0,0,'kelthuzad SAY_TAUNT2'),
@@ -3294,7 +3294,7 @@ INSERT INTO script_texts (entry,content_default,sound,type,LANGUAGE,emote,commen
 (-1616001,'None but the blue dragonflight are welcome here! Perhaps this is the work of Alexstrasza? Well then, she has sent you to your deaths.',14513,1,0,0,'malygos SAY_INTRO_2'),
 (-1616002,'What could you hope to accomplish, to storm brazenly into my domain? To employ MAGIC? Against ME? <Laughs>',14514,1,0,0,'malygos SAY_INTRO_3'),
 (-1616003,'I am without limits here... the rules of your cherished reality do not apply... In this realm, I am in control...',14515,1,0,0,'malygos SAY_INTRO_4'),
-(-1616004,'I give you one chance. Pledge fealty to me, and perhaps I won''t slaughter you for your insolence!',14516,1,0,0,'malygos SAY_INTRO_5'),
+(-1616004,'I give you one chance. Pledge fealty to me, and perhaps I won\'t slaughter you for your insolence!',14516,1,0,0,'malygos SAY_INTRO_5'),
 (-1616005,'My patience has reached its limit, I WILL BE RID OF YOU!',14517,1,0,0,'malygos SAY_AGGRO'),
 (-1616006,'Watch helplessly as your hopes are swept away...',14525,1,0,0,'malygos SAY_VORTEX'),
 (-1616007,'I AM UNSTOPPABLE!',14533,1,0,0,'malygos SAY_SPARK_BUFF'),
@@ -3640,9 +3640,9 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1649021,'The Horde demands justice! We challenge the Alliance. Allow us to battle in place of your knights, paladin. We will show these dogs what it means to insult the Horde!',16023,1,0,0,'garrosh SAY_GARROSH_PVP_A_INTRO_1'),
 (-1649022,'Our honor has been besmirched! They make wild claims and false accusations against us. I demand justice! Allow my champions to fight in place of your knights, Tirion. We challenge the Horde!',16066,1,0,0,'varian SAY_VARIAN_PVP_H_INTRO_1'),
 (-1649023,'Very well, I will allow it. Fight with honor!',16048,1,0,0,'tirion SAY_TIRION_PVP_INTRO_2'),
-(-1649024,'Fight for the glory of the Alliance, heroes! Honor your king and your people!',16065,1,0,0,'varian SAY_VARIAN_PVP_A_INTRO_2'),
-(-1649025,'Show them no mercy, Horde champions! LOK\'TAR OGAR!',16022,1,0,0,'garrosh SAY_GARROSH_PVP_H_INTRO_2'),
-(-1649026,'Glory to the alliance.',16067,1,0,0,'varian SAY_VARIAN_PVP_A_WIN'),
+(-1649024,'Fight for the glory of the Alliance, heroes! Honor your king and your people!',16065,1,0,0,'varian SAY_VARIAN_PVP_H_INTRO_2'),
+(-1649025,'Show them no mercy, Horde champions! LOK\'TAR OGAR!',16022,1,0,0,'garrosh SAY_GARROSH_PVP_A_INTRO_2'),
+(-1649026,'GLORY TO THE ALLIANCE!',16067,1,0,0,'varian SAY_VARIAN_PVP_A_WIN'),
 (-1649027,'That was just a taste of what the future brings. FOR THE HORDE!',16024,1,0,0,'garrosh SAY_GARROSH_PVP_H_WIN'),
 (-1649028,'A shallow and tragic victory. We are weaker as a whole from the losses suffered today. Who but the Lich King could benefit from such foolishness? Great warriors have lost their lives. And for what? The true threat looms ahead - the Lich King awaits us all in death.',16049,1,0,0,'tirion SAY_TIRION_PVP_WIN'),
 
@@ -3656,7 +3656,7 @@ INSERT INTO script_texts (entry,content_default,sound,type,language,emote,commen
 (-1649035,'Arthas! You are hopelessly outnumbered! Lay down Frostmourne and I will grant you a just death.',16052,1,0,0,'tirion SAY_TIRION_ABUN_INTRO_1'),
 (-1649036,'The Nerubians built an empire beneath the frozen wastes of Northrend. An empire that you so foolishly built your structures upon. MY EMPIRE.',16322,1,0,0,'lich_king SAY_LKING_ANUB_INTRO_2'),
 (-1649037,'The souls of your fallen champions will be mine, Fordring.',16323,1,0,0,'lich_king SAY_LKING_ANUB_INTRO_3'),
-(-1649038,'Ahhh... Our guests arrived, just as the master promised.',16235,1,0,0,'anubarak SAY_ANUB_ANUB_INTRO_1'),
+(-1649038,'Ahhh, our guests have arrived, just as the master promised.',16235,1,0,0,'anubarak SAY_ANUB_ANUB_INTRO_1'),
 
 (-1649039,'%s glares at $N and lets out a bellowing roar!',0,3,0,0,'icehowl EMOTE_MASSIVE_CRASH'),
 
@@ -3944,7 +3944,18 @@ INSERT INTO gossip_texts (entry,content_default,comment) VALUES
 
 -- -3 649 000 TRIAL OF CRUSADER
 INSERT INTO gossip_texts (entry,content_default,comment) VALUES
-(-3649000,'Yes. We are prepared for the challenges ahead of us.','barrett GOSSIP_ITEM_START_EVENT1');
+(-3649000,'Yes. We are prepared for the challenges ahead of us.','barrett GOSSIP_ITEM_BEAST_INIT'),
+(-3649001,'Bring forth the first challenge!','barrett GOSSIP_ITEM_BEAST_START'),
+(-3649002,'We want another shot at those beasts!','barrett GOSSIP_ITEM_BEAST_WIPE_INIT'),
+(-3649003,'What new challenge awaits us?','barrett GOSSIP_ITEM_JARAXXUS_INIT'),
+(-3649004,'We\'re ready to fight the sorceror again.','barrett GOSSIP_ITEM_JARAXXUS_WIPE_INIT'),
+(-3649005,'Of course!','barrett GOSSIP_ITEM_PVP_INIT'),
+(-3649006,'Give the signal! We\'re ready to go!','barrett GOSSIP_ITEM_PVP_START'),
+(-3649007,'That tough, huh?','barrett GOSSIP_ITEM_TWINS_INIT'),
+(-3649008,'Val\'kyr? We\'re ready for them','barrett GOSSIP_ITEM_TWINS_START'),
+(-3649009,'Your words of praise are appreciated, Coliseum Master.','barrett GOSSIP_ITEM_ANUB_INIT'),
+(-3649010,'That is strange...','barrett GOSSIP_ITEM_ANUB_START');
+
 
 --
 -- Below just for beautiful view in table, run at own desire
@@ -5153,18 +5164,6 @@ INSERT INTO script_waypoint VALUES
 (18210, 17, -1361.224609, 8521.440430, 11.144, 0, ''),
 (18210, 18, -1324.803589, 8510.688477, 13.050, 0, ''),
 (18210, 19, -1312.075439, 8492.709961, 14.235, 0, '');
-
-DELETE FROM script_waypoint WHERE entry=18731;
-INSERT INTO script_waypoint VALUES
-(18731, 0, -157.366, 2.177, 8.073, 0, ''),
-(18731, 1, -172.266, -18.280, 8.073, 0, ''),
-(18731, 2, -171.051, -38.748, 8.073, 0, ''),
-(18731, 3, -170.718, -59.436, 8.073, 0, ''),
-(18731, 4, -156.659, -72.118, 8.073, 0, ''),
-(18731, 5, -142.292, -59.423, 8.073, 0, ''),
-(18731, 6, -141.779, -38.972, 8.073, 0, ''),
-(18731, 7, -142.922, -18.950, 8.073, 0, ''),
-(18731, 8, -157.366, 2.177, 8.073, 0, '');
 
 DELETE FROM script_waypoint WHERE entry=18887;
 INSERT INTO script_waypoint VALUES

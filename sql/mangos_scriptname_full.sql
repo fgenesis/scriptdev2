@@ -48,6 +48,8 @@ INSERT INTO scripted_areatrigger VALUES
 (3960, 'at_zulgurub');
 DELETE FROM scripted_areatrigger WHERE entry=3626;
 INSERT INTO scripted_areatrigger VALUES (3626, 'at_vaelastrasz');
+DELETE FROM scripted_areatrigger WHERE entry=4937;
+INSERT INTO scripted_areatrigger VALUES (4937, 'at_sunwell_plateau');
 
 
 /* BATTLEGROUNDS */
@@ -470,6 +472,8 @@ UPDATE creature_template SET ScriptName='boss_the_lurker_below' WHERE entry=2121
 
 /* TRIAL OF THE CRUSADER */
 UPDATE instance_template SET ScriptName='instance_trial_of_the_crusader' WHERE map=649;
+UPDATE creature_template SET ScriptName='npc_barrett_ramsey' WHERE entry IN (34816, 35035, 35766, 35770, 35771);
+UPDATE creature_template SET ScriptName='npc_beast_combat_stalker' WHERE entry=36549;
 UPDATE creature_template SET ScriptName='boss_gormok' WHERE entry=34796;
 UPDATE creature_template SET ScriptName='boss_acidmaw' WHERE entry=35144;
 UPDATE creature_template SET ScriptName='boss_dreadscale' WHERE entry=34799;
@@ -534,7 +538,7 @@ UPDATE creature_template SET ScriptName='npc_narm_faulk' WHERE entry=6177;
 /* DUSTWALLOW MARSH */
 UPDATE creature_template SET ScriptName='mobs_risen_husk_spirit' WHERE entry IN (23554,23555);
 UPDATE creature_template SET ScriptName='npc_deserter_agitator' WHERE entry=23602;
-UPDATE creature_template SET ScriptName='npc_lady_jaina_proudmoore' WHERE entry=4968;
+-- UPDATE creature_template SET ScriptName='npc_lady_jaina_proudmoore' WHERE entry=4968;
 UPDATE creature_template SET ScriptName='npc_ogron' WHERE entry=4983;
 UPDATE creature_template SET ScriptName='npc_morokk' WHERE entry=4500;
 UPDATE creature_template SET ScriptName='npc_nat_pagle' WHERE entry=12919;
@@ -1077,6 +1081,9 @@ UPDATE creature_template SET ScriptName='boss_sathrovarr' WHERE entry=24892;
 UPDATE gameobject_template SET ScriptName='go_spectral_rift' WHERE entry=187055;
 DELETE FROM scripted_areatrigger WHERE entry=4853;
 INSERT INTO scripted_areatrigger VALUES (4853,'at_madrigosa');
+UPDATE creature_template SET ScriptName='boss_alythess' WHERE entry=25166;
+UPDATE creature_template SET ScriptName='boss_sacrolash' WHERE entry=25165;
+UPDATE creature_template SET ScriptName='npc_shadow_image' WHERE entry=25214;
 
 /* SWAMP OF SORROWS */
 UPDATE creature_template SET ScriptName='npc_galen_goodward' WHERE entry=5391;

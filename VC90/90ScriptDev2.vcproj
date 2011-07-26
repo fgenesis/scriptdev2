@@ -69,15 +69,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="mangosd.lib ACEd.lib"
-				OutputFile="$(OutDir)/mangosscript.dll"
+				OutputFile="$(OutDir)/mangosscriptR2.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\..\..\win\VC90\mangosd__Win32_Debug;..\..\..\..\dep\lib\win32_debug\"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/mangosscript.pdb"
+				ProgramDatabaseFile="$(OutDir)/mangosscriptR2.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/mangosscript.lib"
+				ImportLibrary="$(OutDir)/mangosscriptR2.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -316,7 +316,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="mangosd.lib ACE.lib"
-				OutputFile="$(OutDir)/mangosscript.dll"
+				OutputFile="$(OutDir)/mangosscriptR2.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\..\win\VC90\mangosd__x64_Release;..\..\..\..\dep\lib\x64_release\"
 				GenerateDebugInformation="false"
@@ -325,7 +325,7 @@
 				EnableCOMDATFolding="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/mangosscript.lib"
+				ImportLibrary="$(OutDir)/mangosscriptR2.lib"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -414,6 +414,10 @@
 				>
 				<File
 					RelativePath="..\scripts\battlegrounds\battleground.cpp"
+					>
+				</File>
+                <File
+					RelativePath="..\scripts\battlegrounds\battlegroundSA.cpp"
 					>
 				</File>
 			</Filter>
