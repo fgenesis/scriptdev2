@@ -416,7 +416,7 @@
 					RelativePath="..\scripts\battlegrounds\battleground.cpp"
 					>
 				</File>
-                <File
+				<File
 					RelativePath="..\scripts\battlegrounds\battlegroundSA.cpp"
 					>
 				</File>
@@ -3140,6 +3140,46 @@
 					Name="northrend"
 					>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="pe"
+				>
+				<File
+					RelativePath="..\scripts\pe\pe_base.h"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\pe\pe_customvendor.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\pe\pe_item_xmas.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\pe\pe_npc_buffs.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\pe\pe_npc_xmas.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\pe\pe_npcs.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\pe\pe_structs.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\pe\pe_structs.h"
+					>
+				</File>
+				<File
+					RelativePath="..\scripts\pe\pe_yuyunator.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
