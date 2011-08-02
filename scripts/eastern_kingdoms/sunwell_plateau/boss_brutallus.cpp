@@ -136,15 +136,18 @@ struct MANGOS_DLL_DECL boss_brutallusAI : public ScriptedAI
 
         if (m_uiSlashTimer < uiDiff)
         {
-            DoCastSpellIfCan(m_creature->getVictim(),SPELL_METEOR_SLASH);
-            m_uiSlashTimer = 11000;
+            if (Unit* pTarget = m_creature->SelectAttackingTarget(ATTACKING_TARGET_TOPAGGRO, 0)) // small walk around to keep meteorslash a frontal ability
+           {
+               DoCast(pTarget,SPELL_METEOR_SLASH);
+               m_uiSlashTimer = 11000;
+           }
         }
         else
             m_uiSlashTimer -= uiDiff;
 
         if (m_uiStompTimer < uiDiff)
         {
-            if (Unit* pTarget = m_creature->getVictim())
+            if (Unit* pTarget = m_creature->SelectAttackingTarget(ATTACKING_TARGET_TOPAGGRO, 0)) //Stomp needs to be focus on main tank target
             {
                 DoCastSpellIfCan(pTarget,SPELL_STOMP);
 
@@ -207,15 +210,15 @@ bool AreaTrigger_at_madrigosa(Player* pPlayer, AreaTriggerEntry const* pAt)
 
 void AddSC_boss_brutallus()
 {
-    Script *newscript;
+    Script* pNewScript;
 
-    newscript = new Script;
-    newscript->Name = "boss_brutallus";
-    newscript->GetAI = &GetAI_boss_brutallus;
-    newscript->RegisterSelf();
+    pNewScript = new Script;
+    pNewScript->Name = "boss_brutallus";
+    pNewScript->GetAI = &GetAI_boss_brutallus;
+    pNewScript->RegisterSelf();
 
-    newscript = new Script;
-    newscript->Name = "at_madrigosa";
-    newscript->pAreaTrigger = &AreaTrigger_at_madrigosa;
-    newscript->RegisterSelf();
+    pNewScript = new Script;
+    pNewScript->Name = "at_madrigosa";
+    pNewScript->pAreaTrigger = &AreaTrigger_at_madrigosa;
+    pNewScript->RegisterSelf();
 }
