@@ -2,12 +2,10 @@
 DELETE FROM scripted_areatrigger WHERE entry=3626;
 INSERT INTO scripted_areatrigger VALUES (3626, 'at_vaelastrasz');
 
--- EAI Text clean up for quests/sd2
-DELETE FROM `creature_ai_texts` WHERE (`entry`='-1120') OR (`entry`='-1121') OR (`entry`='-1122') OR (`entry`='-1123') OR (`entry`='-1124') OR (`entry`='-1125') OR (`entry`='-1126') OR (`entry`='-1127') OR (`entry`='-1128');
-DELETE FROM `creature_ai_texts` WHERE (`entry`='-555') OR (`entry`='-556') OR (`entry`='-557') OR (`entry`='-558') OR (`entry`='-559') OR (`entry`='-560') OR (`entry`='-561') OR (`entry`='-562') OR (`entry`='-563') OR (`entry`='-564') OR (`entry`='-565');
-DELETE FROM `creature_ai_texts` WHERE (`entry`='-696') OR (`entry`='-697');
-
+-- -----------------------------------
 -- mangosR2 EAI CleanUp for quests/sd2
+-- -----------------------------------
+
 DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 25316;
 DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 26127;
 DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 27483;
@@ -25,15 +23,59 @@ UPDATE creature_template SET ScriptName='' WHERE entry IN (35035, 35770, 35771, 
 UPDATE creature_template SET ScriptName='' WHERE entry=36549;
 UPDATE `creature_template` SET `npcflag`=1, `scriptname`='npc_toc_announcer' WHERE `entry`=34816;  -- needed to be rerun
 
+-- EAI Text clean up for quests/sd2
+DELETE FROM `creature_ai_texts` WHERE (`entry`='-1120') OR (`entry`='-1121') OR (`entry`='-1122') OR (`entry`='-1123') OR (`entry`='-1124') OR (`entry`='-1125') OR (`entry`='-1126') OR (`entry`='-1127') OR (`entry`='-1128');
+DELETE FROM `creature_ai_texts` WHERE (`entry`='-555') OR (`entry`='-556') OR (`entry`='-557') OR (`entry`='-558') OR (`entry`='-559') OR (`entry`='-560') OR (`entry`='-561') OR (`entry`='-562') OR (`entry`='-563') OR (`entry`='-564') OR (`entry`='-565');
+DELETE FROM `creature_ai_texts` WHERE (`entry`='-696') OR (`entry`='-697');
+
+-- ---------------
+-- Quest 14107 ---
+-- ---------------
+
+-- still needs support to grip of scourge server side effect and immue to the spell for quest
+
+DELETE FROM `item_required_target` WHERE `entry` = 47033;
+INSERT INTO `item_required_target` (`entry`, `type`, `targetEntry`) VALUES ('47033', '1', '32149');
+UPDATE `creature_template` SET `KillCredit1` = 35055 WHERE `entry` = 32149; -- set fallen proxy
+UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = 32149;
+UPDATE `quest_template` SET `ReqCreatureOrGOId1` = 35055 WHERE `entry` = 14107;
+UPDATE `creature_template` SET `AIName` = 'EventAI', `ScriptName` = '' WHERE `entry` = '32149';
+
+-- addition to EAI for fallen hero  
+DELETE FROM `creature_ai_scripts` WHERE (`id`='3214952'); 
+INSERT INTO `creature_ai_scripts` VALUES ('3214952', '32149', '0', '0', '100', '1', '3000', '4000', '5000', '7000', '11', '11976', '1', '4', '0', '0', '0', '0', '0', '0', '0', '0', 'Strike  -- fallen hero timed cast ');
+
+-- ---------------------
+-- Quest::14111---------
+-- ---------------------
+UPDATE `quest_template` SET `RewSpell` = '0', `RewSpellCast` = '0', `RewItemId1` = '46978', `RewItemCount1` = '1' WHERE `entry` = 14111;
 
 -- ----------------------------------------
--- Bury Those Cockroaches Quest 11608
+-- Quest 12470 ----------------------------
+-- ----------------------------------------
+UPDATE creature_template SET ScriptName='npc_hourglass', AIName = '' WHERE entry=27840;
+DELETE FROM `creature_ai_scripts` WHERE `creature_id` = 27840;
+UPDATE `creature_template` SET `unit_flags` = 516, `dynamicflags` = 8 WHERE `entry` = 27840; -- added root, disable movement, passive
+
+-- spawn more sands   (really should be able to use the whole area)
+DELETE FROM `gameobject` WHERE `id`=300209;
+INSERT INTO `gameobject` (`guid`,`id`,`map`,`spawnMask`,`phaseMask`,`position_x`,`position_y`,`position_z`,`orientation`,`rotation0`,`rotation1`,`rotation2`,`rotation3`,`spawntimesecs`,`animprogress`,`state`) VALUES
+(42417, 300209, 571, 1, 1, 4105.65, -404.624, 117.868, 5.27991, 0, 0, 0.480862, -0.876796, -300, 0, 1),
+(972569, 300209, 571, 1, 1, 4102.71, -444.36, 124.134, 1.774, 0, 0, 0.775178, 0.631742, -300, 0, 1),
+(972568, 300209, 571, 1, 1, 4076.75, -441.368, 120.635, 0.995666, 0, 0, 0.477523, 0.878619, -300, 0, 1),
+(972567, 300209, 571, 1, 1, 4070.94, -418.43, 120.234, 6.23349, 0, 0, 0.0248472, -0.999691, -300, 0, 1),
+(972570, 300209, 571, 1, 1, 4128.17, -436.042, 125.947, 3.17357, 0, 0, 0.999872, -0.0159903, -300, 0, 1),
+(972571, 300209, 571, 1, 1, 4145.28, -419.433, 124.344, 3.38956, 0, 0, 0.992324, -0.123666, -300, 0, 1),
+(972572, 300209, 571, 1, 1, 4150.45, -390.681, 120.723, 3.66602, 0, 0, 0.965819, -0.259218, -300, 0, 1),
+(972573, 300209, 571, 1, 1, 4126.18, -391.728, 119.142, 5.33813, 0, 0, 0.455137, -0.890421, -300, 0, 1);
+-- ----------------------------------------
+-- Bury Those Cockroaches Quest 11608 -----
 -- ----------------------------------------
  
 UPDATE creature_template SET ScriptName='npc_seaforium_depth_charge' WHERE entry=25401;
 
 -- ----------------------------------------
--- Quest 11466 fixes and improvements
+-- Quest 11466 fixes and improvements -----
 -- ----------------------------------------
 
 DELETE FROM creature_addon WHERE guid = 115895;
@@ -44,7 +86,7 @@ UPDATE creature_template SET ScriptName = 'npc_olga', AIName = '' WHERE entry = 
 UPDATE creature_template SET ScriptName = 'npc_jack_adams', AIName = '' WHERE entry = 24788;
 
 -- -------------------------
--- -Quest:: 11656
+-- -Quest:: 11656 ----------
 -- -------------------------
 -- better support
 
