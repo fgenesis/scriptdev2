@@ -4,6 +4,15 @@
 
 #include "precompiled.h"
 
+// PE
+extern void AddSC_pe_customvendor();
+extern void AddSC_pe_item_xmas();
+extern void AddSC_pe_npc_buffs();
+extern void AddSC_pe_npc_xmas();
+extern void AddSC_pe_npcs();
+extern void AddSC_pe_andromeda();
+
+
 // battlegrounds
 extern void AddSC_battleground();
 extern void AddSC_battlegroundSA();
@@ -536,6 +545,14 @@ extern void AddSC_zangarmarsh();
 
 void AddScripts()
 {
+    // PE
+    AddSC_pe_customvendor();
+    AddSC_pe_item_xmas();
+    AddSC_pe_npc_buffs();
+    AddSC_pe_npc_xmas();
+    AddSC_pe_npcs();
+    AddSC_pe_andromeda();
+
     // battlegrounds
     AddSC_battleground();
     AddSC_battlegroundSA();
