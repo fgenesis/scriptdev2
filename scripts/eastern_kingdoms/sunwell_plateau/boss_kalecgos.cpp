@@ -1,4 +1,5 @@
 /* Copyright (C) 2006 - 2011 ScriptDev2 <http://www.scriptdev2.com/>
+ * Copyright (C) 2011 MangosR2_ScriptDev2
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -17,7 +18,9 @@
 /* ScriptData
 SDName: Boss_Kalecgos
 SD%Complete: 40
+NEEDED:: Spectral Realm Fixed to Correctly Finish this
 SDComment: Script must be considered not complete.
+Sathrovarr corpse will need to be spawn w/loot state active so players can loot after event
 SDCategory: Sunwell Plateau
 EndScriptData */
 
@@ -146,6 +149,13 @@ struct MANGOS_DLL_DECL boss_kalecgosAI : public ScriptedAI
             m_pInstance->SetData(TYPE_KALECGOS, IN_PROGRESS);
     }
 
+    void JustDied(Unit* killer)
+    {
+// Walk around due to the fact spectral realm isnt working
+        if (m_pInstance)
+              m_pInstance->SetData(TYPE_KALECGOS, DONE);
+    }
+
     void DamageTaken(Unit* done_by, uint32 &damage)
     {
         if (damage >= m_creature->GetHealth() && done_by != m_creature)
@@ -239,8 +249,9 @@ struct MANGOS_DLL_DECL boss_kalecgosAI : public ScriptedAI
 
         if (id)
         {
-            if (m_pInstance)
-                m_pInstance->SetData(TYPE_KALECGOS, DONE);
+// origanl data for finishing
+            //if (m_pInstance)
+              //  m_pInstance->SetData(TYPE_KALECGOS, DONE);
 
             m_creature->SetVisibility(VISIBILITY_OFF);
             m_creature->DealDamage(m_creature, m_creature->GetHealth(), NULL, DIRECT_DAMAGE, SPELL_SCHOOL_MASK_NORMAL, NULL, false);

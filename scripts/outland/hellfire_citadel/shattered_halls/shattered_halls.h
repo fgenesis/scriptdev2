@@ -14,6 +14,14 @@ enum
     TYPE_BLADEFIST              = 2,                        // TODO Currently unhandled
 
     NPC_NETHEKURSE              = 16807,
+    NPC_DRISELLA                = 17294,
+    NPC_RANDY_WHIZZLESPROCKET   = 17288,
+    NPC_SCOUT_ORGARR            = 17297,
+    NPC_KORAG_PROUDMANE         = 17295,
+    NPC_CAPTAINBONESHATTER      = 17296,
+    NPC_PRIVATE_JACINT          = 17292,
+    NPC_RIFLEMAN_BROWNBEARD     = 17289,
+    NPC_CAPTAIN_ALINA           = 17290,
 
     GO_NETHEKURSE_DOOR          = 182540,
     GO_NETHERKURSE_ENTER_DOOR   = 182539,                   // TODO Currently unhandled
